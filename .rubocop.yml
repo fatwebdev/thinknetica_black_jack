@@ -3,3 +3,7 @@ Metrics/LineLength:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - './game.rb'
