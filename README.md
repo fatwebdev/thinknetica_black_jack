@@ -1,0 +1,1 @@
+Simple blackjack game wrote on ruby.
