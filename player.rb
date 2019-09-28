@@ -1,16 +1,42 @@
 # frozen_string_literal: true
 
 class Player
-  attr_reader :name, :amount, :cards
+  attr_accessor :score, :amount, :cards
+  attr_reader :name
 
-  def initialize(name, amount)
+  def initialize(name)
     @name = name
-    @amount = amount
 
+    @amount = 100
+
+    @score = 0
     @cards = []
   end
 
-  def cards=(card)
+  def add_card(card, score)
     cards << card
+    self.score += score
+  end
+
+  def show_cards
+    cards.join(', ')
+  end
+
+  def bet
+    self.amount -= 10
+    10
+  end
+
+  def take_money(amount)
+    self.amount += amount
+  end
+
+  def reset
+    self.score = 0
+    self.cards = []
+  end
+
+  def bankrupt?
+    amount.zero?
   end
 end
