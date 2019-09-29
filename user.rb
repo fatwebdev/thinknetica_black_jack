@@ -49,6 +49,13 @@ class User < Player
     gets.chomp.to_i
   end
 
+  def continue?
+    print 'Enter any symbol for new game or q for exit... '
+    choice = gets.chomp
+    puts
+    choice != 'q' && super
+  end
+
   def game_status(action, data)
     GAME_STATUSES[action].call(data)
   end

@@ -41,4 +41,8 @@ class Player
   end
 
   def game_status(_action, _data); end
+
+  def continue?
+    !bankrupt?
+  end
 end

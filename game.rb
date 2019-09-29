@@ -145,10 +145,7 @@ class Game
   end
 
   def new_game?
-    print 'Enter any symbol for new game or q for exit... '
-    choice = gets.chomp
-    puts
-    choice != 'q'
+    players.all?(&:continue?)
   end
 
   def log(action, **data)
