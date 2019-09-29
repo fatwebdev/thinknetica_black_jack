@@ -8,10 +8,7 @@ require_relative './deck.rb'
 
 require_relative './game.rb'
 
-print 'Enter your name... '
-name = gets.chomp
-user = User.new(name)
-puts
+user = User.new
 
 game = Game.new(user)
 game.start

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class User < Player
+  def initialize
+    print 'Enter your name... '
+    name = gets.chomp
+    super(name)
+  end
+
   def turn_options
     {
       pass: '1 - pass',
