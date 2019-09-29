@@ -4,6 +4,7 @@ class User < Player
   def initialize
     print 'Enter your name... '
     name = gets.chomp
+    puts
     super(name)
   end
 
