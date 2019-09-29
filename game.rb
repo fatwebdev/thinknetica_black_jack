@@ -8,7 +8,7 @@ class Game
 
   def start
     if players.any?(&:bankrupt?)
-      puts 'one of the players doesn\'t have enough money for game'
+      log(:one_of_player_bankrupt, {})
       return
     end
 
@@ -34,16 +34,14 @@ class Game
   def rates
     self.bank = players.reduce(0) do |acc, player|
       amount = player.bet
-      puts "#{player.name} rate #{amount}"
+      log(:rate, name: player.name, amount: amount)
       acc + amount
     end
-    puts
   end
 
   def game_start
     self.game_status = :start
-    puts 'Game start'
-    puts
+    log(:game_start, {})
   end
 
   def game_end
@@ -75,8 +73,7 @@ class Game
   end
 
   def pass(player)
-    puts "#{player.name} pass"
-    puts
+    log(:pass, name: player.name)
   end
 
   def card_score(card, player)
@@ -95,17 +92,20 @@ class Game
 
     player.add_card(card, score)
 
-    puts "#{player.name} take card"
-    puts
+    log(:take_card, name: player.name)
 
     show_hand(player) if player.cards.count > 2
   end
 
   def show_hand(_player)
-    players.each do |player|
-      puts "#{player.name} has on hand: #{player.show_cards} with total score: #{player.score}"
+    log_data = players.each_with_object({}) do |player, acc|
+      acc[player.name.to_sym] = {
+        cards: player.show_cards,
+        score: player.score
+      }
     end
-    puts
+
+    log(:show_hand, log_data)
 
     game_end
   end
@@ -137,10 +137,9 @@ class Game
     amount = bank / winners.count
     winners.each do |winner|
       self.bank -= amount
-      puts "Winner #{winner.name} take #{amount}"
+      log(:winner, name: winner.name, amount: amount)
       winner.take_money(amount)
     end
-    puts
 
     start if new_game?
   end
@@ -150,5 +149,9 @@ class Game
     choice = gets.chomp
     puts
     choice != 'q'
+  end
+
+  def log(action, **data)
+    players.each { |player| player.game_status(action, data) }
   end
 end

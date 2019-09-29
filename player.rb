@@ -39,4 +39,6 @@ class Player
   def bankrupt?
     amount.zero?
   end
+
+  def game_status(_action, _data); end
 end
