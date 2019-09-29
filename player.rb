@@ -19,7 +19,7 @@ class Player
   end
 
   def show_cards
-    cards.join(', ')
+    cards.map(&:face).join(', ')
   end
 
   def bet

@@ -77,13 +77,11 @@ class Game
   end
 
   def card_score(card, player)
-    type = card[0..-2]
-
-    if type == 'A'
-      return player.score <= 10 ? 11 : 10
+    if card.type == 'A'
+      return player.score <= 10 ? card.value.max : card.value.min
     end
 
-    type.to_i.zero? ? 10 : type.to_i
+    card.value
   end
 
   def take_card(player)
