@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < Player
+class ConsoleUser < Player
   GAME_STATUSES = {
     one_of_player_bankrupt: lambda do |_data|
       puts 'one of the players doesn\'t have enough money for game'
